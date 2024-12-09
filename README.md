@@ -75,3 +75,37 @@ python manage.py runserver
 ```
 
 Acesse [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/) para gerenciar carteiras e despesas.
+
+## Diagrama UML
+
+```mermaid
+classDiagram
+    class User {
+        +id: Integer
+        +username: String
+        +email: String
+        +password: String
+    }
+
+    class Wallet {
+        +id: Integer
+        +name: String
+        +description: String
+        +members: ManyToManyField(User)
+    }
+
+    class Expense {
+        +id: Integer
+        +description: String
+        +amount: Decimal
+        +date: Date
+        +wallet: ForeignKey(Wallet)
+        +payer: ForeignKey(User)
+        +beneficiaries: ManyToManyField(User)
+    }
+
+    User "N" <--> "N" Wallet : members
+    Wallet "1" --> "N" Expense : expenses
+    User "1" --> "N" Expense : payer
+    Expense "N" <--> "N" User : beneficiaries
+```
