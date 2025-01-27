@@ -56,10 +56,11 @@ ROOT_URLCONF = "FairShare.urls"
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [BASE_DIR / 'templates'],  # Certifique-se de que a pasta "templates" está aqui
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -67,7 +68,6 @@ TEMPLATES = [
         },
     },
 ]
-
 
 WSGI_APPLICATION = "FairShare.wsgi.application"
 
@@ -119,7 +119,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',
+    BASE_DIR / 'static',  # Configurado para servir arquivos estáticos no diretório "static"
 ]
 
 # Default primary key field type

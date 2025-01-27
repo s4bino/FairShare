@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Despesas{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Lista de Despesas</h2>
+    
+    <a href="{% url 'core:add_expense' %}" class="btn btn-primary mb-3">Adicionar Nova Despesa</a>
+    
+    {% if expenses %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Descrição</th>
+                        <th>Valor</th>
+                        <th>Data</th>
+                        <th>Carteira</th>
+                        <th>Pago por</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for expense in expenses %}
+                    <tr>
+                        <td>{{ expense.description }}</td>
+                        <td>R$ {{ expense.amount }}</td>
+                        <td>{{ expense.date }}</td>
+                        <td>{{ expense.wallet.name }}</td>
+                        <td>{{ expense.payer.username }}</td>
+                        <td>
+                            <a href="{% url 'core:expense_detail' expense.pk %}" class="btn btn-sm btn-info">Detalhes</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p>Não há despesas registradas.</p>
+    {% endif %}
+</div>
+{% endblock %}

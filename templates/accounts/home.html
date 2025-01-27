@@ -10,6 +10,7 @@
 <div class="container mt-5">
     <h3>Bem-vindo, {{ user.username }}!</h3>
     <p>Esta é a página inicial protegida.</p>
+    <a href="{% url 'add_wallet' %}" class="btn btn-success">Adicionar Carteira</a>
     <form method="post" action="{% url 'logout' %}">
         {% csrf_token %}
         <button type="submit" class="btn btn-danger">Logout</button>

@@ -4,18 +4,32 @@ from django.db import models
 class Wallet(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
-    members = models.ManyToManyField(User, related_name="wallets")
+    members = models.ManyToManyField(
+        User, 
+        related_name="core_wallets"  # Nome único para evitar conflitos
+    )
 
     def __str__(self):
         return self.name
 
 class Expense(models.Model):
-    wallet = models.ForeignKey(Wallet, on_delete=models.CASCADE, related_name="expenses")
+    wallet = models.ForeignKey(
+        Wallet, 
+        on_delete=models.CASCADE, 
+        related_name="expenses"
+    )
     description = models.CharField(max_length=255)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     date = models.DateField(auto_now_add=True)
-    payer = models.ForeignKey(User, on_delete=models.CASCADE, related_name="paid_expenses")
-    beneficiaries = models.ManyToManyField(User, related_name="shared_expenses")
+    payer = models.ForeignKey(
+        User, 
+        on_delete=models.CASCADE, 
+        related_name="paid_expenses"
+    )
+    beneficiaries = models.ManyToManyField(
+        User, 
+        related_name="shared_expenses"
+    )
 
     def __str__(self):
         return f"{self.description} - {self.amount}"
