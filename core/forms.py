@@ -1,5 +1,6 @@
 from django import forms
 from core.models import Expense
+from core.models import Wallet
 
 class ExpenseForm(forms.ModelForm):
     class Meta:

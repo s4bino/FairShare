@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h3>Adicionar Carteira</h3>
+    <form method="post" class="mt-4">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="name" class="form-label">Nome</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Descrição</label>
+            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="balance" class="form-label">Saldo Inicial</label>
+            <input type="number" class="form-control" id="balance" name="balance" step="0.01" value="0">
+        </div>
+        <button type="submit" class="btn btn-primary">Criar Carteira</button>
+    </form>
+</div>
+{% endblock %}

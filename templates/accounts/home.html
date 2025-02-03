@@ -9,8 +9,11 @@
 <body>
 <div class="container mt-5">
     <h3>Bem-vindo, {{ user.username }}!</h3>
-    <p>Esta é a página inicial protegida.</p>
-    <a href="{% url 'add_wallet' %}" class="btn btn-success">Adicionar Carteira</a>
+    <p>Escolha uma funcionalidade!</p>
+    <a href="{% url 'core:add_wallet' %}" class="btn btn-success">Adicionar Carteira</a>
+    <a href="{% url 'core:wallet_list' %}" class="btn btn-success">Ver Carteiras</a>
+    <a href="{% url 'core:expense_list' %}" class="btn btn-success">Ver Despesas</a>
+    </a>
     <form method="post" action="{% url 'logout' %}">
         {% csrf_token %}
         <button type="submit" class="btn btn-danger">Logout</button>
