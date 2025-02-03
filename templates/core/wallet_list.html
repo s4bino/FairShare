@@ -29,12 +29,21 @@
                         <h5 class="card-title text-center text-dark">{{ wallet.name }}</h5>
                         <p class="card-text text-muted">{{ wallet.description|default:"Sem descrição" }}</p>
                         <p class="card-text"><strong class="text-dark">Saldo:</strong> R$ {{ wallet.balance }}</p>
-                        <h6 class="text-secondary">Dono:</h6>
+                        
+                        <h6 class="text-secondary">Membros:</h6>
                         <ul class="list-unstyled">
-                            {% for member in wallet.members.all %}
+                            {% for member in wallet.members.all|slice:":3" %}
                             <li>{{ member.username }}</li>
                             {% endfor %}
+                            {% if wallet.members.count > 3 %}
+                            <li><a href="{% url 'core:wallet_detail' wallet.id %}">Ver todos...</a></li>
+                            {% endif %}
                         </ul>
+
+                        <div class="d-flex justify-content-between mt-3">
+                            <a href="{% url 'core:wallet_detail' wallet.id %}" class="btn btn-sm btn-outline-primary">Detalhes</a>
+                            <a href="{% url 'core:add_members' wallet.id %}" class="btn btn-sm btn-outline-success">Adicionar Membros</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -85,6 +94,26 @@
 
     .btn-primary:hover {
         background-color: #0056b3;
+    }
+
+    .btn-outline-primary {
+        border-color: #007bff;
+        color: #007bff;
+    }
+
+    .btn-outline-primary:hover {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .btn-outline-success {
+        border-color: #28a745;
+        color: #28a745;
+    }
+
+    .btn-outline-success:hover {
+        background-color: #28a745;
+        color: white;
     }
 
     .alert-info {

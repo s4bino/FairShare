@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Expense, Wallet
 from .forms import ExpenseForm
+from .forms import AddMemberForm
 
 # EXPENSES FUNCS
 
@@ -54,3 +55,23 @@ def add_wallet(request):
         messages.success(request, 'Carteira criada com sucesso!', extra_tags='wallet')
         return redirect('core:wallet_list')
     return render(request, 'core/add_wallet.html')
+
+@login_required
+def wallet_detail(request, wallet_id):
+    # Recupera a carteira ou retorna um erro 404 se não existir
+    wallet = get_object_or_404(Wallet, id=wallet_id, members=request.user)
+    return render(request, 'core/wallet_detail.html', {'wallet': wallet})
+
+@login_required
+def add_members(request, wallet_id):
+    wallet = get_object_or_404(Wallet, id=wallet_id, members=request.user)  # Apenas membros da carteira podem adicionar outros
+    if request.method == 'POST':
+        form = AddMemberForm(request.POST)
+        if form.is_valid():
+            users = form.cleaned_data['users']
+            wallet.members.add(*users)  # Adiciona os usuários selecionados à carteira
+            messages.success(request, 'Membros adicionados com sucesso!')
+            return redirect('core:wallet_detail', wallet_id=wallet.id)
+    else:
+        form = AddMemberForm()
+    return render(request, 'core/add_members.html', {'form': form, 'wallet': wallet})

@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-sm border-light rounded p-4" style="max-width: 400px; margin: 0 auto;">
+        <h3 class="font-weight-bold text-dark mb-3">Detalhes da Carteira: {{ wallet.name }}</h3>
+        <p class="text-dark mb-3"><strong>Descrição:</strong> {{ wallet.description }}</p>
+        <p class="text-dark mb-4"><strong>Saldo:</strong> R$ {{ wallet.balance }}</p>
+
+        <h4 class="font-weight-bold text-dark mb-3">Membros da Carteira</h4>
+        <ul class="list-unstyled mb-4">
+            {% for member in wallet.members.all %}
+                <li class="text-dark">{{ member.username }}</li>
+            {% endfor %}
+        </ul>
+
+        <div class="d-grid gap-2 mt-3">
+            <!-- Botão para adicionar membros -->
+            <a href="{% url 'core:add_members' wallet.id %}" class="btn btn-success">Adicionar Membros</a>
+
+            <!-- Botão para voltar à lista de carteiras -->
+            <a href="{% url 'core:wallet_list' %}" class="btn btn-secondary">Voltar</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+<style>
+    body {
+        background-color: #f4f7fc;
+    }
+    .card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        text-align: left;
+    }
+    .btn-success {
+        background-color: #28a745;
+        border: none;
+    }
+    .btn-success:hover {
+        background-color: #218838;
+    }
+    .btn-secondary {
+        background-color: #6c757d;
+        border: none;
+    }
+    .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+    .text-dark {
+        color: #000 !important;
+    }
+    .font-weight-bold {
+        font-weight: 700;
+    }
+</style>

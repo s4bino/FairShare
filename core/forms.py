@@ -1,6 +1,7 @@
 from django import forms
 from core.models import Expense, Wallet
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 
 class ExpenseForm(forms.ModelForm):
     class Meta:
@@ -25,3 +26,9 @@ class ExpenseForm(forms.ModelForm):
         elif self.instance.pk:
             User = get_user_model()
             self.fields['beneficiaries'].queryset = User.objects.all()
+
+class AddMemberForm(forms.Form):
+    users = forms.ModelMultipleChoiceField(
+        queryset=User.objects.all(),
+        widget=forms.SelectMultiple(attrs={'class': 'form-control'})
+    )
