@@ -1,23 +1,64 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container mt-5">
-    <h3>Adicionar Carteira</h3>
-    <form method="post" class="mt-4">
-        {% csrf_token %}
-        <div class="mb-3">
-            <label for="name" class="form-label">Nome</label>
-            <input type="text" class="form-control" id="name" name="name" required>
-        </div>
-        <div class="mb-3">
-            <label for="description" class="form-label">Descrição</label>
-            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
-        </div>
-        <div class="mb-3">
-            <label for="balance" class="form-label">Saldo Inicial</label>
-            <input type="number" class="form-control" id="balance" name="balance" step="0.01" value="0">
-        </div>
-        <button type="submit" class="btn btn-primary">Criar Carteira</button>
-    </form>
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="card">
+        <h3 class="mb-3">Adicionar Carteira</h3>
+        <p class="text-muted">Preencha os detalhes abaixo para criar sua carteira.</p>
+        <form method="post" class="w-100">
+            {% csrf_token %}
+            <div class="mb-3 text-start">
+                <label for="name" class="form-label fw-bold">Nome</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="mb-3 text-start">
+                <label for="description" class="form-label fw-bold">Descrição</label>
+                <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+            </div>
+            <div class="mb-3 text-start">
+                <label for="balance" class="form-label fw-bold">Saldo Inicial</label>
+                <input type="number" class="form-control" id="balance" name="balance" step="0.01" value="0">
+            </div>
+            <button type="submit" class="btn btn-primary btn-custom">Criar Carteira</button>
+        </form>
+    </div>
 </div>
+
+<style>
+    body {
+        background-color: #f4f7fc;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+    }
+    .card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+    }
+    .btn-custom {
+        width: 100%;
+        max-width: 300px;
+        padding: 12px;
+        font-size: 1.1rem;
+        border-radius: 8px;
+        margin-top: 10px;
+    }
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+    }
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    /* Ajuste para garantir que o card não ocupe muito espaço e o footer não fique afastado */
+    .vh-100 {
+        min-height: calc(100vh - 120px); /* Subtrai um pouco para equilibrar a tela */
+    }
+</style>
 {% endblock %}

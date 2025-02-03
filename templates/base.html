@@ -5,14 +5,124 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}FairShare{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f7fc;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: rgba(255, 255, 255, 0.3); /* Background transparente */
+            backdrop-filter: blur(8px); /* Efeito de blur */
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5); /* Linha fina */
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombreamento suave */
+        }
+
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333 !important;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: #555 !important;
+            font-size: 1.1rem;
+            padding: 8px 15px;
+        }
+
+        .nav-link:hover {
+            color: #007bff !important; /* Cor ao passar o mouse */
+        }
+
+        .logout-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            font-size: 0.9rem;
+            border-radius: 5px;
+        }
+
+        .logout-btn:hover {
+            background: #c82333;
+        }
+
+        /* Main content */
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(255, 255, 255, 0.3); /* Background transparente */
+            backdrop-filter: blur(8px); /* Efeito de blur */
+            color: #333;
+            text-align: center;
+            padding: 15px;
+            margin-top: auto;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.5); /* Linha fina */
+            box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.1); /* Sombreamento suave */
+        }
+
+    </style>
 </head>
 <body>
-    <header>
-        <h1><a href="{% url 'home' %}" style="text-decoration: none; color: inherit;">FairShare</a></h1>
-    </header>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">FairShare</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'core:wallet_list' %}">Carteiras</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'core:expense_list' %}">Despesas</a></li>
+                    <li class="nav-item">
+                        <form method="post" action="{% url 'logout' %}" class="d-flex">
+                            {% csrf_token %}
+                            <button type="submit" class="logout-btn">Logout</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main content -->
     <main>
         {% block content %}
         {% endblock %}
     </main>
+
+    <!-- Footer -->
+    <footer>
+        © 2025 FairShare - Gerencie o que você divide!
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

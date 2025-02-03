@@ -1,6 +1,6 @@
 from django import forms
-from core.models import Expense
-from core.models import Wallet
+from core.models import Expense, Wallet
+from django.contrib.auth import get_user_model
 
 class ExpenseForm(forms.ModelForm):
     class Meta:
@@ -19,8 +19,9 @@ class ExpenseForm(forms.ModelForm):
             try:
                 wallet_id = int(self.data.get('wallet'))
                 wallet = Wallet.objects.get(id=wallet_id)
-                self.fields['beneficiaries'].queryset = wallet.members.all()
+                self.fields['wallet'].queryset = user.core_wallets.all()
             except (ValueError, Wallet.DoesNotExist):
                 pass
         elif self.instance.pk:
-            self.fields['beneficiaries'].queryset = self.instance.wallet.members.all()
+            User = get_user_model()
+            self.fields['beneficiaries'].queryset = User.objects.all()

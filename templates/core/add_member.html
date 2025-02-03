@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Adicionar Membro à Carteira: {{ wallet.name }}</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Adicionar Membro</button>
+    </form>
+    <a href="{% url 'core:wallet_list' %}" class="btn btn-secondary mt-3">Voltar para Carteiras</a>
+</div>
+{% endblock %}
