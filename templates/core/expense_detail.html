@@ -2,24 +2,24 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h3>Detalhes da Despesa</h3>
-    <div class="card mt-4">
+    <div class="card shadow-sm border-light rounded p-4" style="max-width: 600px; margin: auto;">
+        <h3 class="font-weight-bold text-dark">Detalhes da Despesa</h3>
         <div class="card-body">
-            <h5 class="card-title">{{ expense.description }}</h5>
+            <h5 class="card-title text-dark font-weight-bold">{{ expense.description }}</h5>
             <p class="card-text">
-                <strong>Valor:</strong> R$ {{ expense.amount }}<br>
-                <strong>Data:</strong> {{ expense.date }}<br>
-                <strong>Carteira:</strong> {{ expense.wallet.name }}<br>
-                <strong>Pagador:</strong> {{ expense.payer.username }}
+                <strong class="font-weight-bold text-dark">Valor:</strong> R$ {{ expense.amount }}<br>
+                <strong class="font-weight-bold text-dark">Data:</strong> {{ expense.date }}<br>
+                <strong class="font-weight-bold text-dark">Carteira:</strong> {{ expense.wallet.name }}<br>
+                <strong class="font-weight-bold text-dark">Pagador:</strong> {{ expense.payer.username }}
             </p>
-            <h6 class="mt-4">Beneficiários:</h6>
+            <h6 class="font-weight-bold text-dark mt-4">Beneficiários:</h6>
             <ul class="list-unstyled">
                 {% for beneficiary in expense.beneficiaries.all %}
-                <li>{{ beneficiary.username }}</li>
+                <li class="text-dark">{{ beneficiary.username }}</li>
                 {% endfor %}
             </ul>
         </div>
+        <a href="{% url 'core:expense_list' %}" class="btn btn-secondary btn-custom w-100">Voltar para lista</a>
     </div>
-    <a href="{% url 'core:expense_list' %}" class="btn btn-secondary mt-3">Voltar para lista</a>
 </div>
 {% endblock %}

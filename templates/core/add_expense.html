@@ -2,22 +2,23 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h3>Adicionar Despesa</h3>
-    <form method="post" class="mt-4">
-        {% csrf_token %}
-        {% for field in form %}
-        <div class="mb-3">
-            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-            {{ field }}
-            {% if field.errors %}
-            <div class="alert alert-danger mt-1">
-                {{ field.errors }}
+    <div class="card shadow-sm border-light rounded p-4" style="max-width: 500px; margin: auto;">
+        <h3 class="font-weight-bold text-dark">Adicionar Despesa</h3>
+        <form method="post" class="mt-4">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="mb-3">
+                <label for="{{ field.id_for_label }}" class="form-label font-weight-bold text-dark">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                <div class="alert alert-danger mt-1">
+                    {{ field.errors }}
+                </div>
+                {% endif %}
             </div>
-            {% endif %}
-        </div>
-        {% endfor %}
-        <button type="submit" class="btn btn-primary">Salvar Despesa</button>
-
-    </form>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary btn-custom w-100">Salvar Despesa</button>
+        </form>
+    </div>
 </div>
 {% endblock %}
